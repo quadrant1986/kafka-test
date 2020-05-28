@@ -1,0 +1,37 @@
+plugins {
+    id 'java'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+
+version '1.0'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+ext {
+    jacksonVersion = '2.9.8'
+    apacheCommonsVersion = '3.9'
+}
+
+dependencies {
+    compile("org.apache.kafka:kafka-clients:$kafkaVersion")
+    compile("org.apache.commons:commons-lang3:$apacheCommonsVersion")
+    compile("com.google.code.gson:gson:2.8.5")
+    compile("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
+    compile("javax.validation:validation-api:2.0.1.Final")
+
+    compileOnly("org.projectlombok:lombok:$lombokVersion")
+    annotationProcessor("org.projectlombok:lombok:$lombokVersion")
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}

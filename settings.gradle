@@ -1,0 +1,5 @@
+rootProject.name = 'kafka-test'
+include 'coriolis-source-connector'
+include 'coriolis-model'
+include 'coriolis-sink-connector'
+

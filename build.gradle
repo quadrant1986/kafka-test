@@ -1,0 +1,67 @@
+buildscript {
+    ext {
+        springBootPluginVersion = '2.1.7.RELEASE'
+    }
+
+    repositories {
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:$springBootPluginVersion")
+        classpath("io.spring.gradle:dependency-management-plugin:1.0.8.RELEASE")
+    }
+}
+
+ext {
+    springBootVersion = '2.1.7.RELEASE'
+    kafkaVersion = '2.3.0'
+    junitVersion = '4.12'
+    log4j2Version = '1.2.0.RELEASE'
+    lombokVersion = '1.18.2'
+    jacksonVersion = '2.9.8'
+    apacheCommonsVersion = '3.10'
+}
+
+apply plugin: 'base'
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
+
+allprojects {
+    group 'ru.coriolis'
+    version '1.0'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    apply plugin: 'java'
+    apply plugin: 'base'
+    apply plugin: 'idea'
+    apply plugin: 'maven'
+    apply plugin: 'maven-publish'
+
+    build.dependsOn publishToMavenLocal
+    publishing {
+        publications {
+            mavenRep(MavenPublication) {
+                from components.java
+            }
+        }
+    }
+
+    clean.doFirst {
+        delete "${projectDir}/build"
+        delete "${projectDir}/out"
+    }
+
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+}

@@ -1,0 +1,54 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:5.1.0'
+    }
+}
+
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+
+version '1.0'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+}
+
+ext {
+    kafkaVersion = '2.3.0'
+    lombokVersion = '1.18.2'
+    hibernateValidatorVersion = '5.4.3.Final'
+}
+
+dependencies {
+    compile project(":coriolis-model")
+
+    compile("org.apache.kafka:connect-api:$kafkaVersion")
+
+    compileOnly("org.projectlombok:lombok:$lombokVersion")
+    annotationProcessor("org.projectlombok:lombok:$lombokVersion")
+
+    testCompile("junit:junit:$junitVersion")
+}
+
+artifacts {
+    archives shadowJar
+}
+
+shadowJar {
+    configurations = [project.configurations.compile]
+}
